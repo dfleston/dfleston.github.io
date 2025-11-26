@@ -22,21 +22,43 @@
 <meta property="og:description" content="{{ . | plainify | htmlUnescape | truncate 200 }}">
 {{- end -}}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-{{- with .Params.image | default .Site.Params.defaultImage -}}
-<meta property="og:image" content="{{ . | absURL }}">
+{{- $image := .Params.image | default .Site.Params.defaultImage -}}
+{{- if $image -}}
+  {{- if reflect.IsMap $image -}}
+    {{- with $image.src -}}
+      <meta property="og:image" content="{{ . | absURL }}">
+    {{- end -}}
+  {{- else -}}
+    <meta property="og:image" content="{{ $image | absURL }}">
+  {{- end -}}
 {{- end -}}
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-{{- with .Site.Params.social.twitter -}}
-<meta name="twitter:site" content="@{{ . }}">
+{{- range .Site.Params.social -}}
+  {{- if or (eq .name "Twitter/X") (eq .name "Twitter Profile") -}}
+    {{- if hasPrefix .url "https://twitter.com/" -}}
+      {{- $handle := strings.TrimPrefix "https://twitter.com/" .url -}}
+      <meta name="twitter:site" content="@{{ $handle }}">
+    {{- else if hasPrefix .url "https://x.com/" -}}
+      {{- $handle := strings.TrimPrefix "https://x.com/" .url -}}
+      <meta name="twitter:site" content="@{{ $handle }}">
+    {{- end -}}
+  {{- end -}}
 {{- end -}}
 <meta name="twitter:title" content="{{ $title }}">
 {{- with .Description | default .Summary | default .Site.Params.description -}}
 <meta name="twitter:description" content="{{ . | plainify | htmlUnescape | truncate 200 }}">
 {{- end -}}
-{{- with .Params.image | default .Site.Params.defaultImage -}}
-<meta name="twitter:image" content="{{ . | absURL }}">
+{{- $image := .Params.image | default .Site.Params.defaultImage -}}
+{{- if $image -}}
+  {{- if reflect.IsMap $image -}}
+    {{- with $image.src -}}
+      <meta name="twitter:image" content="{{ . | absURL }}">
+    {{- end -}}
+  {{- else -}}
+    <meta name="twitter:image" content="{{ $image | absURL }}">
+  {{- end -}}
 {{- end -}}
 
 <!-- RSS -->

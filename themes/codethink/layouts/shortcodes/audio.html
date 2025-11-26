@@ -1,0 +1,28 @@
+{{- $src := .Get "src" -}}
+{{- $controls := .Get "controls" | default "yes" -}}
+{{- $autoplay := .Get "autoplay" | default "no" -}}
+{{- $loop := .Get "loop" | default "no" -}}
+
+{{- $resource := "" -}}
+{{- if $src -}}
+  {{- $resource = .Page.Resources.GetMatch $src -}}
+  {{- if not $resource -}}
+    {{- $resource = resources.Get (printf "media/%s" $src) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $resource -}}
+<audio 
+  {{- if eq $controls "yes" }} controls{{- end -}}
+  {{- if eq $autoplay "yes" }} autoplay{{- end -}}
+  {{- if eq $loop "yes" }} loop{{- end -}}
+  class="w-full my-4"
+>
+  <source src="{{ $resource.RelPermalink }}" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+{{- else -}}
+<div class="alert alert-warning">
+  Audio file "{{ $src }}" not found in page resources or media library.
+</div>
+{{- end -}}
