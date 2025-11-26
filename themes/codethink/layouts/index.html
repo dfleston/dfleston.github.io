@@ -1,0 +1,36 @@
+{{ define "main" }}
+<section class="home">
+  {{- with .Site.Params.author -}}
+  <div class="author-card">
+    {{- if .avatar -}}
+    <img src="{{ .avatar | relURL }}" alt="{{ .name }}" class="avatar" width="150" height="150">
+    {{- end -}}
+    <h2>{{ .name }}</h2>
+    {{- with .bio -}}
+    <p>{{ . | markdownify }}</p>
+    {{- end -}}
+  </div>
+  {{- end -}}
+  
+  <h2>Recent Posts</h2>
+  {{- $pages := where .Site.RegularPages "Section" "blog" | first 10 -}}
+  {{- if $pages -}}
+  <ul class="post-list">
+    {{- range $pages -}}
+    <li class="post-item">
+      <h3 class="post-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+      {{- partial "post-meta.html" . -}}
+      {{- with .Summary -}}
+      <p class="post-summary">{{ . }}</p>
+      {{- end -}}
+      <a href="{{ .RelPermalink }}">Read more →</a>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- else -}}
+  <p>No posts yet.</p>
+  {{- end -}}
+</section>
+{{ end }}

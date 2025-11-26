@@ -1,0 +1,12 @@
+name = "CodeThink"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "Innovative, lightweight terminal-inspired Hugo theme for code experiments and thoughts"
+homepage = "https://github.com/dflestonio/codethink"
+tags = ["blog", "developer", "code", "minimal", "dark-mode", "terminal", "monospace"]
+features = ["syntax-highlighting", "mermaid", "rss", "dark-mode-toggle", "responsive", "seo"]
+min_version = "0.111.0"
+
+[author]
+  name = "Daniel Leston"
+  homepage = "https://github.com/dfleston"

@@ -1,30 +1,22 @@
 # SITE SETUP
-# Guide: https://docs.hugoblox.com/tutorial/
-# Documentation: https://docs.hugoblox.com/
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-# Appearance
-appearance:
-  mode: system
-  color: blue
+# Site Description
+description: 'Code experiments and thoughts on Bitcoin, Cognitive Computing, and Virtual Production'
 
-# SEO
-marketing:
-  seo:
-    site_type: Person
-    local_business_type: ''
-    org_name: ''
-    description: 'A highly-customizable Hugo blog theme powered by Hugo Blox Builder.'
-    twitter: 'df_leston'
-  analytics:
-    google_analytics: ''
-    baidu_tongji: ''
-    plausible: ''
-    fathom: ''
-    pirsch: ''
-  verification:
-    google: ''
-    baidu: ''
+# Author
+author:
+  name: 'Daniel Leston'
+  bio: 'Thinker, Builder, Holder - Exploring Bitcoin, Cognitive Computing & Virtual Production'
+  avatar: '/content/authors/admin/avatar.png'
+
+# Social Links
+social:
+  - name: 'Twitter/X'
+    url: 'https://x.com/BuildLore'
+  - name: 'GitHub'
+    url: 'https://github.com/dfleston'
+  twitter: 'df_leston'
 
 # Site header
 header:

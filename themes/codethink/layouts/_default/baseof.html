@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+  {{- partial "head.html" . -}}
+  {{- $style := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint -}}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+  {{- $chroma := resources.Get "css/chroma.css" | resources.Minify | resources.Fingerprint -}}
+  <link rel="stylesheet" href="{{ $chroma.RelPermalink }}" integrity="{{ $chroma.Data.Integrity }}">
+</head>
+<body>
+  <div class="site-wrapper">
+    <aside class="sidebar">
+      {{- partial "header.html" . -}}
+      {{- partial "navigation.html" . -}}
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">🌓 auto</button>
+      {{- partial "footer.html" . -}}
+    </aside>
+    
+    <main class="main-content">
+      {{- block "main" . }}{{- end }}
+    </main>
+  </div>
+  
+  {{- $themeToggle := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}}
+  <script defer src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}"></script>
+  {{- $mermaid := resources.Get "js/mermaid-init.js" | resources.Minify | resources.Fingerprint -}}
+  <script defer src="{{ $mermaid.RelPermalink }}" integrity="{{ $mermaid.Data.Integrity }}"></script>
+</body>
+</html>

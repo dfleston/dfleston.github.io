@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{{- $title := cond .IsHome .Site.Title (printf "%s | %s" .Title .Site.Title) -}}
+<title>{{ $title }}</title>
+
+{{- with .Description | default .Summary | default .Site.Params.description -}}
+<meta name="description" content="{{ . | plainify | htmlUnescape | truncate 160 }}">
+{{- end -}}
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- if .Site.Params.author.name -}}
+<meta name="author" content="{{ .Site.Params.author.name }}">
+{{- end -}}
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{- with .Description | default .Summary | default .Site.Params.description -}}
+<meta property="og:description" content="{{ . | plainify | htmlUnescape | truncate 200 }}">
+{{- end -}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+{{- with .Params.image | default .Site.Params.defaultImage -}}
+<meta property="og:image" content="{{ . | absURL }}">
+{{- end -}}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+{{- with .Site.Params.social.twitter -}}
+<meta name="twitter:site" content="@{{ . }}">
+{{- end -}}
+<meta name="twitter:title" content="{{ $title }}">
+{{- with .Description | default .Summary | default .Site.Params.description -}}
+<meta name="twitter:description" content="{{ . | plainify | htmlUnescape | truncate 200 }}">
+{{- end -}}
+{{- with .Params.image | default .Site.Params.defaultImage -}}
+<meta name="twitter:image" content="{{ . | absURL }}">
+{{- end -}}
+
+<!-- RSS -->
+{{- with .OutputFormats.Get "rss" -}}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+{{- end -}}
+
+<!-- Robots -->
+<meta name="robots" content="index, follow">

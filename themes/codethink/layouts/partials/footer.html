@@ -1,0 +1,17 @@
+<footer class="site-footer">
+  <p>© {{ now.Year }} {{ .Site.Params.author.name | default .Site.Title }}</p>
+  {{- if .Site.Params.social -}}
+  <ul class="social-links">
+    {{- range .Site.Params.social -}}
+    <li>
+      <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }}">
+        {{ .name }}
+      </a>
+    </li>
+    {{- end -}}
+  </ul>
+  {{- end -}}
+  {{- with .OutputFormats.Get "rss" -}}
+  <p><a href="{{ .Permalink }}">RSS</a></p>
+  {{- end -}}
+</footer>
