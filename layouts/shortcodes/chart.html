@@ -1,0 +1,22 @@
+<div id="chart-{{ .Get "data" }}" class="plotly-chart"></div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var chartId = "chart-{{ .Get "data" }}";
+        var jsonDataPath = "{{ .Page.RelPermalink }}{{ .Get "data" }}.json";
+        fetch(jsonDataPath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                Plotly.newPlot(chartId, data.data, data.layout);
+            })
+            .catch(error => {
+                console.error('Error loading or plotting chart:', error);
+                document.getElementById(chartId).innerHTML = '<p style="color: red;">Error loading chart.</p>';
+            });
+    });
+</script>

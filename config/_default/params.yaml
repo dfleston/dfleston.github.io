@@ -16,7 +16,8 @@ social:
     url: 'https://x.com/BuildLore'
   - name: 'GitHub'
     url: 'https://github.com/dfleston'
-  twitter: 'df_leston'
+  - name: 'Twitter'
+    url: 'https://twitter.com/df_leston'
 
 # Site header
 header:
